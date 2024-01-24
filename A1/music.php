@@ -1,3 +1,20 @@
+<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $selectedTopic = $_POST["submit"];
+
+    switch ($selectedTopic) {
+        case "Music":
+            header("Location: music.php"); 
+            exit();
+            break;
+        case "Countries":
+            header("Location: countries.php"); 
+            exit();
+            break;
+    }
+}
+?>
+
 <p><?php echo "Today's date and time is: " . date("F j, Y g:i a"); ?></p>
 
 

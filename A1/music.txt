@@ -1,0 +1,10 @@
+"C:\xampp\htdocs\A1\band\1.jpg"|coldplay
+"C:/xampp\htdocs\A1\band\2.jpg"|falloutboys
+"C:/xampp\htdocs\A1\band\3.jpg"|linkinpark
+"C:/xampp\htdocs\A1\band\4.jpeg"|oasis
+"C:/xampp\htdocs\A1\band\5.jpg"|onerepublic
+"C:/xampp\htdocs\A1\band\6.jpg"|radiohead
+"C:/xampp\htdocs\A1\band\7.jpg"|thebeatles
+"C:/xampp\htdocs\A1\band\8.jpeg"|thesmiths
+"C:/xampp\htdocs\A1\band\9.jpg"|westlife
+

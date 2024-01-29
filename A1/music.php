@@ -9,46 +9,71 @@ if (isset($_POST['_submit'])) {
     recordScore($_SESSION['_nickname'], $_SESSION['_score']);
     header("Location: result.php");
 }
+
+// Function to load quiz questions
+function loadquiz($filename) {
+    $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    if ($lines === false) {
+        // Handle the case where the file couldn't be loaded
+        die('Error loading questions file.');
+    }
+
+    $questions = [];
+
+    foreach ($lines as $line) {
+        // explode the line into 3 parts. array pad ensures that there are 3 elements inside
+        list($imagesource, $question, $answer) = array_pad(explode('|', $line, 3), 3, null);
+
+        // set empty string if imageurl not around
+        $imagesource = isset($imagesource) ? trim($imagesource) : '';
+
+        $questions[] = [
+            'imagesource' => $imagesource,
+            'question' => filter_var($question, FILTER_SANITIZE_STRING), 
+            'answer' => filter_var($answer, FILTER_SANITIZE_STRING), 
+        ];
+    }
+
+    return $questions;
+}
+
+    // Load music questions
+    $musicquestiontextfile = 'music.txt';
+    $musicquiz = loadquiz($musicquestiontextfile); //use the function to load the txt file
+    shuffle($musicquiz); //randomly arrange the questions
+    $givenmusicquestions = array_slice($musicquiz, 0, 3); //select first 3 elements from the shuffled array
 ?>
 
-<p><?php echo "Today's date and time is: " . date("F j, Y g:i a"); ?></p>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Quiz Page</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Music Quiz Page</title>
 </head>
 <body>
-    <h2>Welcome to the Music quiz! Fill in the blanks of the given band!</h2>
+    <h2>Welcome to the Music Quiz Page!</h2>
 
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-    <div class="question-container">
-            <img src="band/oasis.jpeg" alt="Artist 1">
-            <label for="answer1">Enter the name of the artist/band:</label>
-            <input type="text" name="answer1" required>
-    </div>
-
-    <div class="question-container">
-            <img src="band/thesmiths.jpeg" alt="Artist 2">
-            <label for="answer2">Enter the name of the artist/band:</label>
-            <input type="text" name="answer2" required>
-    </div>
-
-    <div class="question-container">
-            <img src="band/The-Beatles.jpg" alt="Artist 3">
-            <label for="answer3">Enter the name of the artist/band:</label>
-            <input type="text" name="answer3" required>
-    </div>
-
-
-    <a href="index.php" class="index-link">Go back to Home Page</a>
-
+    <form method="post">
+        <?php foreach ($givenmusicquestions as $questionindex => $question) { ?>
+            <div class="question-container">
+                <?php
+                $imagesource = 'band/' . basename($question['imagesource']); //source path of the image
+                echo '<img src="' . $imagesource . '" alt="Music Pic ' . ($questionindex + 1) . '">';
+                echo "<label for='answer$questionindex'>Guess the band!:</label>"; //question for user to view
+                echo "<input type='text' name='answers[$questionindex]' required>"; // a space for user to key in their required answer
+                ?>
+            </div>
+        <?php } ?>
+    </form> 
     <button type="submit" class="submit-button" name="_submit">Submit Answers!</button>
-    </form>
+    <a href="index.php" class="questionindex-link">Go back to Home Page</a>
+
+   
 </body>
 </html>
-
 

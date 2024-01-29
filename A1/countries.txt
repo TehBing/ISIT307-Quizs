@@ -1,0 +1,9 @@
+Canada is the world's largest country by land area?|True
+Brazil is the only country in South America where Portuguese is the official language?|False
+The Great Wall of China is visible from space?|False
+Australia is both a country and a continent?|True 
+The capital of Japan is Seoul?|False   
+Russia spans two continents: Europe and Asia?|True 
+The currency of Mexico is the peso?|True 
+Egypt is located in South America?|False
+Switzerland has four official languages.German, French, Italian, and Romansh?|True 

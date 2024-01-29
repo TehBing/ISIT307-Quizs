@@ -1,22 +1,17 @@
-<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<?php 
+// Start the session
+session_start();
+include 'global.php';
+setSessionScore();
 
-    $selectedTopic = $_POST["submit"];
-
-    switch ($selectedTopic) {
-        case "Music":
-            header("Location: music.php"); 
-            exit();
-            break;
-        case "Countries":
-            header("Location: countries.php"); 
-            exit();
-            break;
-    }
+//Button click
+if (isset($_POST['_submit'])) {
+    recordScore($_SESSION['_nickname'], $_SESSION['_score']);
+    header("Location: result.php");
 }
 ?>
 
 <p><?php echo "Today's date and time is: " . date("F j, Y g:i a"); ?></p>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +46,7 @@
 
     <a href="index.php" class="index-link">Go back to Home Page</a>
 
-    <button type="submit" class="submit-button">Submit Answers!</button>
+    <button type="submit" class="submit-button" name="_submit">Submit Answers!</button>
     </form>
 </body>
 </html>
